@@ -54,10 +54,10 @@ fun ClimateScreen(navController: NavController) {
                 .weight(1f),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                "Top-Down Interior Render",
-                color = White.copy(alpha = 0.3f),
-                fontWeight = FontWeight.Medium
+            com.example.ui.components.CarTopDown(
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .fillMaxHeight(0.9f)
             )
         }
         

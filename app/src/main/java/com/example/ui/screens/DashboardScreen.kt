@@ -86,11 +86,10 @@ fun DashboardScreen(navController: NavController) {
                     .height(280.dp),
                 contentAlignment = Alignment.Center
             ) {
-                // In a real app, use an Image composable with a 3D car render.
-                Text(
-                    "3D Car Model Render",
-                    color = White.copy(alpha = 0.3f),
-                    fontWeight = FontWeight.Medium
+                com.example.ui.components.CarSideProfile(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(220.dp)
                 )
             }
         }
