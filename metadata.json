@@ -1,0 +1,6 @@
+{
+  "name": "PAL Motors EV",
+  "description": "iOS style dashboard for PAL Motors EV, featuring real-time telemetry, mapping, climate controls, and remote start.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
