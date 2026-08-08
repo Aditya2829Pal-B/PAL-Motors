@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background-color: transparent;
+            overflow: hidden;
+        }
+        model-viewer {
+            width: 100vw;
+            height: 100vh;
+            --poster-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <model-viewer 
+        src="ferrari.glb" 
+        camera-controls 
+        interaction-prompt="none"
+        shadow-intensity="1" 
+        shadow-softness="1"
+        environment-image="neutral"
+        exposure="1"
+        camera-orbit="-90deg 0deg 105%"
+        min-camera-orbit="auto auto 5%"
+        max-camera-orbit="auto auto 150%"
+        max-field-of-view="auto"
+        style="background-color: transparent;">
+    </model-viewer>
+</body>
+</html>

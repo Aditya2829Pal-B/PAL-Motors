@@ -130,6 +130,10 @@ fun DashboardScreen(navController: NavController) {
         }
         
         item {
+            com.example.ui.components.BatteryDiagnosticChart()
+        }
+        
+        item {
             Spacer(modifier = Modifier.height(16.dp))
         }
 
