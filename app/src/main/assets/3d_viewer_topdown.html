@@ -8,16 +8,70 @@
             margin: 0;
             background-color: transparent;
             overflow: hidden;
+            font-family: sans-serif;
         }
         model-viewer {
             width: 100vw;
             height: 100vh;
             --poster-color: transparent;
         }
+        .Hotspot {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 32px;
+            border: 2px solid #007AFF;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+            box-sizing: border-box;
+            cursor: pointer;
+            height: 24px;
+            padding: 8px;
+            position: relative;
+            transition: opacity 0.3s;
+            width: 24px;
+        }
+        .Hotspot:not([data-visible]) {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: none;
+            height: 24px;
+            pointer-events: none;
+            width: 24px;
+        }
+        .Hotspot:focus {
+            border: 4px solid #007AFF;
+            height: 28px;
+            outline: none;
+            width: 28px;
+        }
+        .Hotspot > * {
+            opacity: 1;
+            transform: translateY(-50%);
+        }
+        .HotspotAnnotation{
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+            color: rgba(0, 0, 0, 0.8);
+            display: block;
+            font-family: Futura, Helvetica Neue, sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            left: calc(100% + 1em);
+            max-width: 128px;
+            overflow-wrap: break-word;
+            padding: 0.5em 1em;
+            position: absolute;
+            top: 50%;
+            width: max-content;
+            display: none;
+        }
+        .Hotspot:hover .HotspotAnnotation, .Hotspot:focus .HotspotAnnotation {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <model-viewer 
+        id="car-model"
         src="ferrari.glb" 
         camera-controls 
         interaction-prompt="none"
@@ -30,6 +84,26 @@
         max-camera-orbit="auto auto 150%"
         max-field-of-view="auto"
         style="background-color: transparent;">
+        
+        <button class="Hotspot" slot="hotspot-hood" data-position="0 0.7 1.8" data-normal="0 1 0" onclick="showInfo('Front Hood', 'Frunk: Empty\nStorage Space: 4.5 cu ft')">
+            <div class="HotspotAnnotation">Front Hood</div>
+        </button>
+        <button class="Hotspot" slot="hotspot-trunk" data-position="0 0.8 -1.8" data-normal="0 1 0" onclick="showInfo('Rear Trunk', 'Trunk: Locked\nStorage Space: 28 cu ft')">
+            <div class="HotspotAnnotation">Rear Trunk</div>
+        </button>
+        <button class="Hotspot" slot="hotspot-roof" data-position="0 1.2 0" data-normal="0 1 0" onclick="showInfo('Panoramic Roof', 'Sunshade: Open')">
+            <div class="HotspotAnnotation">Panoramic Roof</div>
+        </button>
     </model-viewer>
+
+    <script>
+        function showInfo(title, message) {
+            if (window.Android) {
+                window.Android.onComponentTapped(title, message);
+            } else {
+                alert(title + "\n" + message);
+            }
+        }
+    </script>
 </body>
 </html>
