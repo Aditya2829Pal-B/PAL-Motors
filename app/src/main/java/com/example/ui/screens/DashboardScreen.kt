@@ -11,6 +11,10 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
+import androidx.fragment.app.FragmentActivity
+import com.example.ui.utils.BiometricHelper
+import android.widget.Toast
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -30,7 +34,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun DashboardScreen(navController: NavController) {
     var isLocked by remember { mutableStateOf(true) }
-
+    val context = LocalContext.current as FragmentActivity
+    
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -107,7 +112,15 @@ fun DashboardScreen(navController: NavController) {
             ) {
                 QuickControlFramer(
                     icon = if (isLocked) Icons.Default.Lock else Icons.Default.LockOpen,
-                    onClick = { isLocked = !isLocked }
+                    onClick = { 
+                        BiometricHelper.authenticate(
+                            activity = context,
+                            title = "Authenticate to unlock",
+                            subtitle = "Verify identity to remote unlock vehicle",
+                            onSuccess = { isLocked = !isLocked },
+                            onError = { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
+                        )
+                    }
                 )
                 QuickControlFramer(
                     icon = Icons.Default.AcUnit,

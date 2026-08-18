@@ -13,6 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalContext
+import androidx.fragment.app.FragmentActivity
+import com.example.ui.utils.BiometricHelper
+import android.widget.Toast
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.ui.input.pointer.pointerInput
@@ -35,6 +39,7 @@ fun ClimateScreen(navController: NavController) {
     var isAutoOn by remember { mutableStateOf(false) }
     var isRecircOn by remember { mutableStateOf(true) }
     var isFrontDefrostOn by remember { mutableStateOf(false) }
+    val context = LocalContext.current as FragmentActivity
 
     Column(
         modifier = Modifier
@@ -107,7 +112,15 @@ fun ClimateScreen(navController: NavController) {
                         .size(48.dp)
                         .clip(RoundedCornerShape(24.dp))
                         .background(if (isOn) iOSBlue.copy(alpha = 0.2f) else DarkGray)
-                        .framerClickable { isOn = !isOn },
+                        .framerClickable {
+                            BiometricHelper.authenticate(
+                                activity = context,
+                                title = "Climate Control",
+                                subtitle = "Authenticate to modify climate settings",
+                                onSuccess = { isOn = !isOn },
+                                onError = { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
+                            )
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(

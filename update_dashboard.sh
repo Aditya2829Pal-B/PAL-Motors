@@ -1,0 +1,1 @@
+sed -i 's/import androidx.compose.ui.Alignment/import androidx.compose.ui.Alignment\nimport androidx.compose.ui.platform.LocalContext\nimport androidx.fragment.app.FragmentActivity\nimport com.example.ui.utils.BiometricHelper\nimport android.widget.Toast/' app/src/main/java/com/example/ui/screens/DashboardScreen.kt
