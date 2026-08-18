@@ -1,5 +1,14 @@
 package com.example.ui
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -54,7 +63,31 @@ fun MainScreen() {
         NavHost(
             navController = navController,
             startDestination = Screen.Dashboard.route,
-            modifier = Modifier.padding(innerPadding).fillMaxSize()
+            modifier = Modifier.padding(innerPadding).fillMaxSize(),
+            enterTransition = {
+                scaleIn(
+                    initialScale = 0.9f,
+                    animationSpec = spring(dampingRatio = 0.8f, stiffness = 300f)
+                ) + fadeIn(animationSpec = tween(200))
+            },
+            exitTransition = {
+                scaleOut(
+                    targetScale = 1.1f,
+                    animationSpec = spring(dampingRatio = 0.8f, stiffness = 300f)
+                ) + fadeOut(animationSpec = tween(200))
+            },
+            popEnterTransition = {
+                scaleIn(
+                    initialScale = 1.1f,
+                    animationSpec = spring(dampingRatio = 0.8f, stiffness = 300f)
+                ) + fadeIn(animationSpec = tween(200))
+            },
+            popExitTransition = {
+                scaleOut(
+                    targetScale = 0.9f,
+                    animationSpec = spring(dampingRatio = 0.8f, stiffness = 300f)
+                ) + fadeOut(animationSpec = tween(200))
+            }
         ) {
             composable(Screen.Dashboard.route) { DashboardScreen(navController) }
             composable(Screen.Climate.route) { ClimateScreen(navController) }

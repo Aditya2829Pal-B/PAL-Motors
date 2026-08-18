@@ -14,9 +14,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.ui.components.framerClickable
 import com.example.ui.theme.DarkGray
 import com.example.ui.theme.White
 import com.example.ui.theme.iOSBlue
+import androidx.compose.foundation.border
+import androidx.compose.foundation.background
+import androidx.compose.ui.draw.clip
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -43,8 +47,10 @@ fun SettingsScreen(navController: NavController) {
                 contentDescription = "Back",
                 tint = White,
                 modifier = Modifier
-                    .size(32.dp)
-                    .clickable { navController.popBackStack() }
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .framerClickable { navController.popBackStack() }
+                    .padding(8.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -132,30 +138,27 @@ fun SettingsCard(
     valueText: String = "",
     onClick: () -> Unit
 ) {
-    Card(
-        onClick = onClick,
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = DarkGray),
-        shape = RoundedCornerShape(16.dp)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .framerClickable(onClick = onClick)
+            .clip(RoundedCornerShape(32.dp))
+            .background(DarkGray)
+            .border(1.dp, White.copy(alpha = 0.05f), RoundedCornerShape(32.dp))
+            .padding(horizontal = 24.dp, vertical = 20.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            modifier = Modifier
-                .padding(20.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(icon, contentDescription = null, tint = iconColor, modifier = Modifier.size(28.dp))
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(title, fontWeight = FontWeight.SemiBold, color = White, fontSize = 16.sp)
-                if (subtitle.isNotEmpty()) {
-                    Text(subtitle, color = White.copy(alpha = 0.6f), fontSize = 13.sp)
-                }
+        Icon(icon, contentDescription = null, tint = iconColor, modifier = Modifier.size(28.dp))
+        Spacer(modifier = Modifier.width(16.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(title, fontWeight = FontWeight.SemiBold, color = White, fontSize = 16.sp)
+            if (subtitle.isNotEmpty()) {
+                Text(subtitle, color = White.copy(alpha = 0.6f), fontSize = 13.sp)
             }
-            if (valueText.isNotEmpty()) {
-                Text(valueText, color = White.copy(alpha = 0.5f), fontSize = 14.sp, modifier = Modifier.padding(end = 8.dp))
-            }
-            Icon(Icons.Default.ChevronRight, contentDescription = null, tint = White.copy(alpha = 0.3f))
         }
+        if (valueText.isNotEmpty()) {
+            Text(valueText, color = White.copy(alpha = 0.5f), fontSize = 14.sp, modifier = Modifier.padding(end = 8.dp))
+        }
+        Icon(Icons.Default.ChevronRight, contentDescription = null, tint = White.copy(alpha = 0.3f))
     }
 }

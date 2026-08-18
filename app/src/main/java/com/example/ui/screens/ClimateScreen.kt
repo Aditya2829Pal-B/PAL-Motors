@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.ui.components.framerClickable
 import com.example.ui.theme.DarkGray
 import com.example.ui.theme.iOSBlue
 import com.example.ui.theme.White
@@ -106,7 +107,7 @@ fun ClimateScreen(navController: NavController) {
                         .size(48.dp)
                         .clip(RoundedCornerShape(24.dp))
                         .background(if (isOn) iOSBlue.copy(alpha = 0.2f) else DarkGray)
-                        .clickable { isOn = !isOn },
+                        .framerClickable { isOn = !isOn },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -274,7 +275,7 @@ fun QuickActionButton(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable(onClick = onClick)
+        modifier = Modifier.framerClickable(onClick = onClick)
     ) {
         Box(
             modifier = Modifier

@@ -18,10 +18,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.ui.components.framerClickable
 import com.example.ui.theme.DarkGray
 import com.example.ui.theme.iOSBlue
 import com.example.ui.theme.iOSGreen
 import com.example.ui.theme.White
+import androidx.compose.foundation.border
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -68,9 +70,10 @@ fun DashboardScreen(navController: NavController) {
                 // Profile Icon
                 Box(
                     modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(DarkGray),
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(DarkGray)
+                        .framerClickable { },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(Icons.Default.Person, contentDescription = "Profile", tint = White.copy(alpha = 0.8f))
@@ -99,32 +102,24 @@ fun DashboardScreen(navController: NavController) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 48.dp, vertical = 24.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(horizontal = 24.dp, vertical = 24.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Icon(
-                    imageVector = if (isLocked) Icons.Default.Lock else Icons.Default.LockOpen,
-                    contentDescription = "Lock",
-                    tint = White,
-                    modifier = Modifier.size(28.dp).clickable { isLocked = !isLocked }
+                QuickControlFramer(
+                    icon = if (isLocked) Icons.Default.Lock else Icons.Default.LockOpen,
+                    onClick = { isLocked = !isLocked }
                 )
-                Icon(
-                    imageVector = Icons.Default.AcUnit, // fan
-                    contentDescription = "Climate",
-                    tint = White,
-                    modifier = Modifier.size(28.dp).clickable { navController.navigate("climate") }
+                QuickControlFramer(
+                    icon = Icons.Default.AcUnit,
+                    onClick = { navController.navigate("climate") }
                 )
-                Icon(
-                    imageVector = Icons.Default.ElectricBolt,
-                    contentDescription = "Charge",
-                    tint = White,
-                    modifier = Modifier.size(28.dp)
+                QuickControlFramer(
+                    icon = Icons.Default.ElectricBolt,
+                    onClick = { }
                 )
-                Icon(
-                    imageVector = Icons.Default.DirectionsCar,
-                    contentDescription = "Trunk",
-                    tint = White,
-                    modifier = Modifier.size(28.dp)
+                QuickControlFramer(
+                    icon = Icons.Default.DirectionsCar,
+                    onClick = { }
                 )
             }
         }
@@ -159,12 +154,36 @@ fun DashboardScreen(navController: NavController) {
 }
 
 @Composable
+fun QuickControlFramer(icon: androidx.compose.ui.graphics.vector.ImageVector, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .size(64.dp)
+            .framerClickable(onClick = onClick)
+            .clip(RoundedCornerShape(24.dp))
+            .background(DarkGray)
+            .border(1.dp, White.copy(alpha = 0.05f), RoundedCornerShape(24.dp)),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = White,
+            modifier = Modifier.size(28.dp)
+        )
+    }
+}
+
+@Composable
 fun MenuListItem(icon: androidx.compose.ui.graphics.vector.ImageVector, title: String, subtitle: String? = null, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(horizontal = 24.dp, vertical = 18.dp),
+            .padding(horizontal = 24.dp, vertical = 8.dp)
+            .framerClickable(onClick = onClick)
+            .clip(RoundedCornerShape(32.dp))
+            .background(DarkGray)
+            .border(1.dp, White.copy(alpha = 0.05f), RoundedCornerShape(32.dp))
+            .padding(horizontal = 24.dp, vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(

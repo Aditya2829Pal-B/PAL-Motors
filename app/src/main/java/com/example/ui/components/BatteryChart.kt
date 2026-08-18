@@ -1,5 +1,11 @@
 package com.example.ui.components
 
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.background
+import com.example.ui.components.framerClickable
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +44,11 @@ fun BatteryDiagnosticChart() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 16.dp)
+            .framerClickable { }
+            .clip(RoundedCornerShape(32.dp))
+            .background(DarkGray)
+            .border(1.dp, White.copy(alpha = 0.05f), RoundedCornerShape(32.dp))
+            .padding(24.dp)
     ) {
         Text(
             text = "Battery Telemetry (Last Hour)",

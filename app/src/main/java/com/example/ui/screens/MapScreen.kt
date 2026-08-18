@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.ui.components.framerClickable
 import com.example.ui.theme.DarkGray
 import com.example.ui.theme.White
 
@@ -51,10 +52,10 @@ fun MapScreen(navController: NavController) {
             ) {
                 Box(
                     modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(16.dp))
                         .background(Color.Black.copy(alpha = 0.5f))
-                        .clickable { navController.popBackStack() },
+                        .framerClickable { navController.popBackStack() },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(Icons.Default.KeyboardArrowLeft, contentDescription = "Back", tint = White)
@@ -62,9 +63,10 @@ fun MapScreen(navController: NavController) {
                 
                 Box(
                     modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(Color.Black.copy(alpha = 0.5f)),
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color.Black.copy(alpha = 0.5f))
+                        .framerClickable { },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(Icons.Default.Person, contentDescription = "Profile", tint = White)
@@ -72,15 +74,17 @@ fun MapScreen(navController: NavController) {
             }
 
             // Locate Button
-            FloatingActionButton(
-                onClick = { },
+            Box(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(24.dp),
-                containerColor = DarkGray,
-                contentColor = White
+                    .padding(24.dp)
+                    .size(56.dp)
+                    .clip(RoundedCornerShape(24.dp))
+                    .background(DarkGray)
+                    .framerClickable { },
+                contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.MyLocation, contentDescription = "Locate")
+                Icon(Icons.Default.MyLocation, contentDescription = "Locate", tint = White)
             }
         }
         
@@ -97,11 +101,14 @@ fun MapScreen(navController: NavController) {
             
             Spacer(modifier = Modifier.height(24.dp))
             
-            Button(
-                onClick = { },
-                modifier = Modifier.fillMaxWidth().height(50.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = DarkGray),
-                shape = RoundedCornerShape(25.dp)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .clip(RoundedCornerShape(28.dp))
+                    .background(DarkGray)
+                    .framerClickable { },
+                contentAlignment = Alignment.Center
             ) {
                 Text("Go to Target", color = White, fontWeight = FontWeight.SemiBold)
             }
@@ -112,20 +119,26 @@ fun MapScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Button(
-                    onClick = { },
-                    modifier = Modifier.weight(1f).height(60.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = DarkGray),
-                    shape = RoundedCornerShape(12.dp)
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(60.dp)
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(DarkGray)
+                        .framerClickable { },
+                    contentAlignment = Alignment.Center
                 ) {
                     Icon(Icons.Default.ArrowUpward, contentDescription = "Forward", tint = White)
                 }
                 
-                Button(
-                    onClick = { },
-                    modifier = Modifier.weight(1f).height(60.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = DarkGray),
-                    shape = RoundedCornerShape(12.dp)
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(60.dp)
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(DarkGray)
+                        .framerClickable { },
+                    contentAlignment = Alignment.Center
                 ) {
                     Icon(Icons.Default.ArrowDownward, contentDescription = "Backward", tint = White)
                 }
