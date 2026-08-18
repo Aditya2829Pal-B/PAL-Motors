@@ -29,7 +29,7 @@ fun CarSideProfile(modifier: Modifier = Modifier) {
         AndroidView(
             factory = { context ->
                 WebView(context).apply {
-                    setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null)
+                    // Let the system manage layer types to avoid emulator MESA errors
                     settings.javaScriptEnabled = true
                     settings.domStorageEnabled = true
                     settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
@@ -55,7 +55,7 @@ fun CarTopDown(modifier: Modifier = Modifier) {
         AndroidView(
             factory = { context ->
                 WebView(context).apply {
-                    setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null)
+                    // Let the system manage layer types to avoid emulator MESA errors
                     settings.javaScriptEnabled = true
                     settings.domStorageEnabled = true
                     settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
