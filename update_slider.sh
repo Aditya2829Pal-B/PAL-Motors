@@ -1,0 +1,1 @@
+sed -i 's/import androidx.compose.ui.platform.LocalContext/import androidx.compose.ui.platform.LocalContext\nimport androidx.compose.ui.platform.LocalHapticFeedback\nimport androidx.compose.ui.hapticfeedback.HapticFeedbackType/' app/src/main/java/com/example/ui/screens/ClimateScreen.kt

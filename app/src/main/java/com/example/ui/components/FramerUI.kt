@@ -18,6 +18,9 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.runtime.LaunchedEffect
 
 @Composable
 fun Modifier.framerClickable(onClick: () -> Unit): Modifier = composed {
@@ -25,6 +28,15 @@ fun Modifier.framerClickable(onClick: () -> Unit): Modifier = composed {
     val isPressed by interactionSource.collectIsPressedAsState()
     var size by remember { mutableStateOf(IntSize.Zero) }
     var touchPosition by remember { mutableStateOf(Offset.Zero) }
+    
+    val haptic = LocalHapticFeedback.current
+    LaunchedEffect(isPressed) {
+        if (isPressed) {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+        } else {
+            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+        }
+    }
 
     val scale by animateFloatAsState(
         targetValue = if (isPressed) 0.92f else 1f,

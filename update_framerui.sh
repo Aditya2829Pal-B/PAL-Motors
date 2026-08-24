@@ -1,0 +1,1 @@
+sed -i 's/import androidx.compose.ui.unit.IntSize/import androidx.compose.ui.unit.IntSize\nimport androidx.compose.ui.platform.LocalHapticFeedback\nimport androidx.compose.ui.hapticfeedback.HapticFeedbackType\nimport androidx.compose.runtime.LaunchedEffect/' app/src/main/java/com/example/ui/components/FramerUI.kt

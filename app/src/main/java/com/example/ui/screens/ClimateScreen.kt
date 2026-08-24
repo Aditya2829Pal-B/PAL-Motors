@@ -14,6 +14,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.fragment.app.FragmentActivity
 import com.example.ui.utils.BiometricHelper
 import android.widget.Toast
@@ -211,6 +213,9 @@ fun ModernSlider(
 ) {
     var width by remember { mutableStateOf(1f) }
     val fraction = ((value - valueRange.start) / (valueRange.endInclusive - valueRange.start)).coerceIn(0f, 1f)
+    
+    val haptic = LocalHapticFeedback.current
+    var lastHapticValue by remember { mutableStateOf(value.toInt()) }
 
     Box(
         modifier = modifier
@@ -227,6 +232,12 @@ fun ModernSlider(
                         val newFraction = (newX / width).coerceIn(0f, 1f)
                         val newValue = valueRange.start + newFraction * (valueRange.endInclusive - valueRange.start)
                         onValueChange(newValue)
+                        
+                        val newInt = newValue.toInt()
+                        if (newInt != lastHapticValue) {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            lastHapticValue = newInt
+                        }
                     }
                 )
             }
@@ -235,6 +246,8 @@ fun ModernSlider(
                     val newFraction = (offset.x / width).coerceIn(0f, 1f)
                     val newValue = valueRange.start + newFraction * (valueRange.endInclusive - valueRange.start)
                     onValueChange(newValue)
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    lastHapticValue = newValue.toInt()
                 }
             }
     ) {
