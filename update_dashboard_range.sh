@@ -1,0 +1,2 @@
+sed -i 's/com.example.ui.components.BatteryDiagnosticChart()/com.example.ui.components.BatteryDiagnosticChart()\n        }\n        \n        item {\n            com.example.ui.components.PredictiveRangeCard()/' app/src/main/java/com/example/ui/screens/DashboardScreen.kt
+sed -i 's/Text(\n                        text = "282 mi"/Text(\n                        text = "216 mi"/' app/src/main/java/com/example/ui/screens/DashboardScreen.kt

@@ -128,7 +128,15 @@ fun DashboardScreen(navController: NavController) {
                 )
                 QuickControlFramer(
                     icon = Icons.Default.ElectricBolt,
-                    onClick = { }
+                    onClick = { 
+                        BiometricHelper.authenticate(
+                            activity = context,
+                            title = "Remote Start",
+                            subtitle = "Verify identity to start vehicle",
+                            onSuccess = { Toast.makeText(context, "Vehicle Remote Started", Toast.LENGTH_SHORT).show() },
+                            onError = { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
+                        )
+                    }
                 )
                 QuickControlFramer(
                     icon = Icons.Default.DirectionsCar,
@@ -139,6 +147,10 @@ fun DashboardScreen(navController: NavController) {
         
         item {
             com.example.ui.components.BatteryDiagnosticChart()
+        }
+        
+        item {
+            com.example.ui.components.PredictiveRangeCard()
         }
         
         item {
