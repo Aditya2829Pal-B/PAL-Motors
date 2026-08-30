@@ -1,0 +1,1 @@
+sed -i 's/com.example.ui.components.PredictiveRangeCard()/com.example.ui.components.PredictiveRangeCard()\n        }\n        \n        item {\n            com.example.ui.components.TirePressureCard()/' app/src/main/java/com/example/ui/screens/DashboardScreen.kt
