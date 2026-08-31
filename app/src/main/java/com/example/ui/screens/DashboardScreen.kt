@@ -156,6 +156,10 @@ fun DashboardScreen(navController: NavController) {
         item {
             com.example.ui.components.TirePressureCard()
         }
+
+        item {
+            com.example.ui.components.ChargingScheduleCard()
+        }
         
         item {
             Spacer(modifier = Modifier.height(16.dp))
