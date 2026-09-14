@@ -41,6 +41,8 @@ import com.example.ui.screens.ClimateScreen
 import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.MapScreen
 import com.example.ui.screens.SettingsScreen
+import com.example.ui.screens.ProfilesScreen
+import androidx.compose.material.icons.filled.Person
 import com.example.ui.theme.DarkGray
 import com.example.ui.theme.iOSBlue
 import com.example.ui.theme.White
@@ -50,6 +52,7 @@ sealed class Screen(val route: String, val title: String, val icon: ImageVector)
     object Climate : Screen("climate", "Climate", Icons.Filled.Thermostat)
     object Map : Screen("map", "Navigation", Icons.Filled.Map)
     object Settings : Screen("settings", "Settings", Icons.Filled.Settings)
+    object Profiles : Screen("profiles", "Profiles", Icons.Filled.Person)
 }
 
 @Composable
@@ -93,6 +96,7 @@ fun MainScreen() {
             composable(Screen.Climate.route) { ClimateScreen(navController) }
             composable(Screen.Map.route) { MapScreen(navController) }
             composable(Screen.Settings.route) { SettingsScreen(navController) }
+            composable(Screen.Profiles.route) { ProfilesScreen(navController) }
         }
     }
 }

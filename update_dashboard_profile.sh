@@ -1,0 +1,3 @@
+sed -i 's/fun DashboardScreen(navController: NavController)/fun DashboardScreen(navController: NavController, profileViewModel: com.example.data.DriverProfileViewModel = androidx.lifecycle.viewmodel.compose.viewModel())/' app/src/main/java/com/example/ui/screens/DashboardScreen.kt
+sed -i 's/val context = LocalContext.current as FragmentActivity/val context = LocalContext.current as FragmentActivity\n    val activeProfile by profileViewModel.activeProfile.collectAsState()/' app/src/main/java/com/example/ui/screens/DashboardScreen.kt
+sed -i 's/text = "My Model S",/text = activeProfile?.name?.let { "${it}'\''s Model S" } ?: "My Model S",/' app/src/main/java/com/example/ui/screens/DashboardScreen.kt

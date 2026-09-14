@@ -1,6 +1,7 @@
 package com.example.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,9 +33,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun DashboardScreen(navController: NavController) {
+fun DashboardScreen(navController: NavController, profileViewModel: com.example.data.DriverProfileViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
     var isLocked by remember { mutableStateOf(true) }
     val context = LocalContext.current as FragmentActivity
+    val activeProfile by profileViewModel.activeProfile.collectAsState()
     
     LazyColumn(
         modifier = Modifier
@@ -53,7 +55,7 @@ fun DashboardScreen(navController: NavController) {
             ) {
                 Column {
                     Text(
-                        text = "My Model S",
+                        text = activeProfile?.name?.let { "${it}'s Model S" } ?: "My Model S",
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
                         color = White
@@ -78,7 +80,7 @@ fun DashboardScreen(navController: NavController) {
                         .size(44.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .background(DarkGray)
-                        .framerClickable { },
+                        .framerClickable { navController.navigate("profiles") },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(Icons.Default.Person, contentDescription = "Profile", tint = White.copy(alpha = 0.8f))
