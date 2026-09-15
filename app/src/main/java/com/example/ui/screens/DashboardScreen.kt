@@ -170,6 +170,7 @@ fun DashboardScreen(navController: NavController, profileViewModel: com.example.
         // Menu Items
         item { MenuListItem(icon = Icons.Default.Settings, title = "Controls", onClick = { navController.navigate("settings") }) }
         item { MenuListItem(icon = Icons.Default.Thermostat, title = "Climate", subtitle = "Active - Interior 74°F", onClick = { navController.navigate("climate") }) }
+        item { MenuListItem(icon = Icons.Default.Lightbulb, title = "Ambient Lighting", subtitle = "Signature White", onClick = { navController.navigate("ambient") }) }
         item { MenuListItem(icon = Icons.Default.LocationOn, title = "Location", subtitle = "123 Main St, Anytown CA", onClick = { navController.navigate("map") }) }
         item { MenuListItem(icon = Icons.Default.ArrowUpward, title = "Summon", onClick = { navController.navigate("map") }) }
         item { MenuListItem(icon = Icons.Default.Security, title = "Security", onClick = { navController.navigate("settings") }) }

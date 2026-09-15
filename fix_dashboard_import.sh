@@ -1,0 +1,1 @@
+sed -i 's/import androidx.compose.material.icons.filled.DirectionsCar/import androidx.compose.material.icons.filled.DirectionsCar\nimport androidx.compose.material.icons.filled.Lightbulb/' app/src/main/java/com/example/ui/screens/DashboardScreen.kt

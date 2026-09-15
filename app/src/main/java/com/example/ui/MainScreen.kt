@@ -42,6 +42,8 @@ import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.MapScreen
 import com.example.ui.screens.SettingsScreen
 import com.example.ui.screens.ProfilesScreen
+import com.example.ui.screens.AmbientLightScreen
+import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Person
 import com.example.ui.theme.DarkGray
 import com.example.ui.theme.iOSBlue
@@ -53,6 +55,7 @@ sealed class Screen(val route: String, val title: String, val icon: ImageVector)
     object Map : Screen("map", "Navigation", Icons.Filled.Map)
     object Settings : Screen("settings", "Settings", Icons.Filled.Settings)
     object Profiles : Screen("profiles", "Profiles", Icons.Filled.Person)
+    object Ambient : Screen("ambient", "Ambient Lighting", Icons.Filled.Lightbulb)
 }
 
 @Composable
@@ -97,6 +100,7 @@ fun MainScreen() {
             composable(Screen.Map.route) { MapScreen(navController) }
             composable(Screen.Settings.route) { SettingsScreen(navController) }
             composable(Screen.Profiles.route) { ProfilesScreen(navController) }
+            composable(Screen.Ambient.route) { AmbientLightScreen(navController) }
         }
     }
 }
