@@ -149,7 +149,7 @@ fun AmbientLightScreen(navController: NavController) {
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp, bottom = 32.dp),
+            contentPadding = PaddingValues(start = 24.dp, end = 24.dp, top = 8.dp, bottom = 32.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {

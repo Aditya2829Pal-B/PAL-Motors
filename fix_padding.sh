@@ -1,0 +1,1 @@
+sed -i 's/contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp, bottom = 32.dp),/contentPadding = PaddingValues(start = 24.dp, end = 24.dp, top = 8.dp, bottom = 32.dp),/' app/src/main/java/com/example/ui/screens/AmbientLightScreen.kt
