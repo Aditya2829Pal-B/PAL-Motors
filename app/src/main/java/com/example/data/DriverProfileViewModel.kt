@@ -38,4 +38,20 @@ class DriverProfileViewModel(application: Application) : AndroidViewModel(applic
     fun updateProfile(profile: DriverProfile) = viewModelScope.launch {
         repository.update(profile)
     }
+
+    fun addProfile(name: String, seatPosition: Float, mirrorTilt: Float, climateTemp: Float) = viewModelScope.launch {
+        repository.insert(
+            DriverProfile(
+                name = name,
+                isActive = false,
+                seatPosition = seatPosition,
+                mirrorTilt = mirrorTilt,
+                climateTemp = climateTemp
+            )
+        )
+    }
+
+    fun deleteProfile(id: Int) = viewModelScope.launch {
+        repository.delete(id)
+    }
 }

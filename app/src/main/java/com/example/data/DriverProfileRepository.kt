@@ -14,6 +14,10 @@ class DriverProfileRepository(private val dao: DriverProfileDao) {
         dao.updateProfile(profile)
     }
 
+    suspend fun delete(id: Int) {
+        dao.deleteProfileById(id)
+    }
+
     suspend fun switchProfile(profileId: Int) {
         dao.deactivateAll()
         dao.setActiveProfile(profileId)

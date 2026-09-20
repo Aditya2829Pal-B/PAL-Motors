@@ -7,9 +7,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Speed
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -21,24 +23,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.theme.DarkGray
+import com.example.ui.theme.LightGray
 import com.example.ui.theme.White
 import com.example.ui.theme.iOSBlue
+import com.example.ui.theme.iOSGreen
 import kotlinx.coroutines.delay
 
 @Composable
 fun TirePressureCard(modifier: Modifier = Modifier) {
     // Simulated real-time pressure
-    var fl by remember { mutableStateOf(34) }
-    var fr by remember { mutableStateOf(34) }
-    var rl by remember { mutableStateOf(34) }
-    var rr by remember { mutableStateOf(32) } // Starts lower, simulating a slow leak
-
+    var fl by remember { mutableStateOf(35) }
+    var fr by remember { mutableStateOf(35) }
+    var rl by remember { mutableStateOf(35) }
+    var rr by remember { mutableStateOf(32) } // Starts lower, simulating pressure leak
     var isExpanded by remember { mutableStateOf(false) }
 
-    // Simulate real-time pressure loss in the rear-right tire
+    // Real-time pressure leak simulation
     LaunchedEffect(Unit) {
-        while (rr > 25) {
-            delay(2000) // Drops 1 PSI every 2 seconds for demonstration
+        while (rr > 26) {
+            delay(2500)
             rr -= 1
         }
     }
@@ -48,9 +51,9 @@ fun TirePressureCard(modifier: Modifier = Modifier) {
 
     val statusColor by animateColorAsState(
         targetValue = when {
-            hasCritical -> Color(0xFFFF5252) // Critical Red
-            hasWarning -> Color(0xFFFFC107)  // Warning Yellow
-            else -> iOSBlue
+            hasCritical -> Color(0xFFFF453A) // Critical Red
+            hasWarning -> Color(0xFFFF9F0A)  // Warning Yellow
+            else -> iOSGreen
         },
         label = "statusColor"
     )
@@ -87,16 +90,16 @@ fun TirePressureCard(modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.width(12.dp))
                 Column {
                     Text(
-                        text = "Tire Pressure",
+                        text = "Tire Pressure (TPMS)",
                         fontSize = 17.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = White
                     )
                     Text(
                         text = when {
-                            hasCritical -> "Critical pressure low"
-                            hasWarning -> "Check right rear tire"
-                            else -> "All systems nominal"
+                            hasCritical -> "Critical low pressure detected"
+                            hasWarning -> "Warning: Check right rear tire"
+                            else -> "All 4 tires nominal (35 PSI)"
                         },
                         fontSize = 13.sp,
                         color = statusColor
@@ -116,33 +119,51 @@ fun TirePressureCard(modifier: Modifier = Modifier) {
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     TireIndicator(label = "FL", psi = fl)
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(28.dp))
                     TireIndicator(label = "RL", psi = rl)
                 }
-                
-                // Car top-down silhouette
+
+                // Vehicle silhouette graphic
                 Box(
                     modifier = Modifier
-                        .width(64.dp)
-                        .height(140.dp)
-                        .clip(RoundedCornerShape(24.dp))
-                        .background(Color(0xFF2C2C2E))
-                        .border(1.dp, White.copy(alpha = 0.1f), RoundedCornerShape(24.dp)),
+                        .width(60.dp)
+                        .height(130.dp)
+                        .clip(RoundedCornerShape(22.dp))
+                        .background(Color(0xFF242426))
+                        .border(1.dp, White.copy(alpha = 0.1f), RoundedCornerShape(22.dp)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Info, // Placeholder for vehicle top-down
-                        contentDescription = null,
-                        tint = White.copy(alpha = 0.2f),
-                        modifier = Modifier.size(24.dp)
+                    Text(
+                        text = "TOP\nVIEW",
+                        color = White.copy(alpha = 0.25f),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold
                     )
                 }
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     TireIndicator(label = "FR", psi = fr)
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(28.dp))
                     TireIndicator(label = "RR", psi = rr)
                 }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Inflate / Recalibrate button
+            Button(
+                onClick = {
+                    fl = 35
+                    fr = 35
+                    rl = 35
+                    rr = 35
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = LightGray)
+            ) {
+                Icon(Icons.Default.Build, contentDescription = null, tint = White, modifier = Modifier.size(16.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Inflate & Reset TPMS Sensors", color = White, fontSize = 13.sp)
             }
         }
     }
@@ -152,11 +173,11 @@ fun TirePressureCard(modifier: Modifier = Modifier) {
 fun TireIndicator(label: String, psi: Int) {
     val isLow = psi < 32
     val isCritical = psi < 28
-    
+
     val color by animateColorAsState(
         targetValue = when {
-            isCritical -> Color(0xFFFF5252)
-            isLow -> Color(0xFFFFC107)
+            isCritical -> Color(0xFFFF453A)
+            isLow -> Color(0xFFFF9F0A)
             else -> White
         },
         label = "tireColor"
@@ -166,7 +187,7 @@ fun TireIndicator(label: String, psi: Int) {
         Text(text = label, fontSize = 12.sp, color = White.copy(alpha = 0.5f))
         Text(
             text = "$psi",
-            fontSize = 24.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = color
         )
